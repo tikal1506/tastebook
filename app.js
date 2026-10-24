@@ -24,6 +24,7 @@ form.addEventListener("submit", (event) => {
     id: Date.now(),
     name: document.getElementById("name").value.trim(),
     category: "Kaffee",
+    barcode: document.getElementById("barcode").value.trim(),
     rating: Number(document.getElementById("rating").value),
     note: document.getElementById("note").value.trim(),
   });

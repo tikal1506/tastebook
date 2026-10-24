@@ -12,9 +12,14 @@
 </head>
 <body>
   <h1>Tastebook</h1>
-
+  <section>
+    <button id="scan-button" type="button">Packung scannen</button>
+    <div id="reader" hidden></div>
+    <p id="scan-result"></p>
+  </section>
   <form id="product-form">
     <label>Name <input id="name" required></label>
+    <label>Barcode <input id="barcode" inputmode="numeric"></label>
     <label>Bewertung (1-5)
       <input id="rating" type="number" min="1" max="5" value="3">
     </label>
@@ -28,6 +33,7 @@
     <button id="import-button" type="button">Importieren</button>
     <input id="import-file" type="file" accept="application/json" hidden>
   </div>
+  <script src="html5-qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
