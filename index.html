@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tastebook</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3b2a20">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-title" content="tastebook">
+</head>
+<body>
+  <h1>Tastebook</h1>
+
+  <form id="product-form">
+    <label>Name <input id="name" required></label>
+    <label>Bewertung (1-5)
+      <input id="rating" type="number" min="1" max="5" value="3">
+    </label>
+    <label>Notiz <textarea id="note"></textarea></label>
+    <button type="submit">Speichern</button>
+  </form>
+
+  <ul id="product-list"></ul>
+  <div>
+    <button id="export-button" type="button">Exportieren</button>
+    <button id="import-button" type="button">Importieren</button>
+    <input id="import-file" type="file" accept="application/json" hidden>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

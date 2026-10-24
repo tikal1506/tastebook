@@ -1,0 +1,4 @@
+body { font-family: system-ui, sans-serif; max-width: 480px; margin: 1rem auto; padding: 0 1rem; }
+label { display: block; margin-bottom: 0.75rem; }
+input, select, textarea, button { width: 100%; font-size: 1rem; padding: 0.5rem; box-sizing: border-box; }
+li { margin-bottom: 0.5rem; }
