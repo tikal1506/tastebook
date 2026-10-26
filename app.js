@@ -102,6 +102,73 @@ importFile.addEventListener("change", async () => {
   importFile.value = "";
 });
 
+const scanButton = document.getElementById("scan-button");
+const readerBox = document.getElementById("reader");
+const scanResult = document.getElementById("scan-result");
+let scanner = null;
+
+async function startScanner() {
+  readerBox.hidden = false;
+  scanButton.textContent = "Scanner schließen";
+  scanResult.textContent = "";
+
+  scanner = new Html5Qrcode("reader", {
+    formatsToSupport: [
+      Html5QrcodeSupportedFormats.EAN_13,
+      Html5QrcodeSupportedFormats.EAN_8,
+      Html5QrcodeSupportedFormats.UPC_A,
+      Html5QrcodeSupportedFormats.UPC_E,
+    ],
+  });
+
+  try {
+    await scanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: { width: 250, height: 150 } },
+      onScanSuccess
+    );
+  } catch (error) {
+    scanResult.textContent = "Kamera konnte nicht gestartet werden: " + error;
+    await stopScanner();
+  }
+}
+
+async function stopScanner() {
+  const current = scanner;
+  scanner = null;
+  if (current) {
+    try {
+      await current.stop();
+      current.clear();
+    } catch {}
+  }
+  readerBox.hidden = true;
+  scanButton.textContent = "Packung scannen";
+}
+
+function onScanSuccess(code) {
+  if (!scanner) return;
+  stopScanner();
+
+  const found = products.find((p) => p.barcode === code);
+  if (found) {
+    scanResult.textContent = `Schon getrunken: ${found.name} ${"★".repeat(found.rating)} ${found.note}`;
+  } else {
+    scanResult.textContent = `Neu! Barcode ${code} ist noch nicht gespeichert.`;
+    document.getElementById("barcode").value = code;
+  }
+}
+
+scanButton.addEventListener("click", () => {
+  console.log("Klick auf Scan");
+  if (scanner) stopScanner();
+  else startScanner();
+});
+
 if ("serviceWorker" in navigator && !["localhost", "127.0.0.1"].includes(location.hostname)) {
   navigator.serviceWorker.register("sw.js");
 }
+
+console.log("Ende app.js erreicht");
+console.log("scanButton:", scanButton);
+console.log("Html5Qrcode:", typeof Html5Qrcode);
