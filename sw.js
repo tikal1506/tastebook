@@ -1,4 +1,4 @@
-const CACHE = "tastebook-v2";
+const CACHE = "tastebook-v3";
 const FILES = [
   "./", "index.html", "style.css", "app.js", "html5-qrcode.min.js",
   "manifest.json", "icon-180.png", "icon-192.png", "icon-512.png",
@@ -17,7 +17,15 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
+
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request, { cache: "no-cache" })
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
