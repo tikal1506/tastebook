@@ -1,4 +1,4 @@
-const CACHE = "tastebook-v6";
+const CACHE = "tastebook-v7";
 const FILES = [
   "./", "index.html", "style.css", "html5-qrcode.min.js",
   "app.js", "products.js", "list.js", "ui.js", "verdict.js", "backup.js", "scanner.js", "pwa.js",
