@@ -32,7 +32,7 @@ export function showKnown(container, product) {
 export function showNew(container, code) {
   show(container, "new", [
     el("p", "verdict-title", "Neu"),
-    el("p", "verdict-name", "Diese Packung hast du noch nicht erfasst."),
+    el("p", "verdict-name", "Diesen Kaffee hast du noch nicht erfasst."),
     el("p", "verdict-note", `Barcode ${code}`),
   ]);
 }

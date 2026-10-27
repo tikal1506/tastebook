@@ -3,7 +3,7 @@ import { el, ratingBadge } from "./ui.js";
 export function renderList(listEl, products, { onDelete }) {
   if (products.length === 0) {
     listEl.replaceChildren(
-      el("li", "empty", "Noch keine Bohnen gespeichert. Scanne eine Packung oder lege die erste von Hand an.")
+      el("li", "empty", "Noch kein Kaffee gespeichert. Scanne einen Barcode oder erfasse einen Kaffee manuell.")
     );
     return;
   }
