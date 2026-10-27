@@ -3,36 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tastebook</title>
-  <link rel="stylesheet" href="style.css">
+  <title>tastebook</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#3b2a20">
+  <meta name="theme-color" content="#E6EADB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1F17" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-180.png">
   <meta name="apple-mobile-web-app-title" content="tastebook">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Tastebook</h1>
-  <section>
-    <button id="scan-button" type="button">Packung scannen</button>
-    <div id="reader" hidden></div>
-    <p id="scan-result"></p>
-  </section>
-  <form id="product-form">
-    <label>Name <input id="name" required></label>
-    <label>Barcode <input id="barcode" inputmode="numeric"></label>
-    <label>Bewertung (1-5)
-      <input id="rating" type="number" min="1" max="5" value="3">
-    </label>
-    <label>Notiz <textarea id="note"></textarea></label>
-    <button type="submit">Speichern</button>
-  </form>
+  <header>
+    <h1>tastebook</h1>
+  </header>
 
-  <ul id="product-list"></ul>
-  <div>
-    <button id="export-button" type="button">Exportieren</button>
-    <button id="import-button" type="button">Importieren</button>
+  <main>
+    <section class="scan" aria-label="Packung prüfen">
+      <button id="scan-button" class="button" type="button">Packung scannen</button>
+      <div id="reader" hidden></div>
+      <div id="scan-result" class="verdict" role="status" hidden></div>
+    </section>
+
+    <details id="add-details" class="add">
+      <summary>Bohne hinzufügen</summary>
+      <form id="product-form">
+        <label class="field">Name
+          <input id="name" required autocomplete="off">
+        </label>
+
+        <label class="field">Barcode (optional)
+          <input id="barcode" inputmode="numeric" autocomplete="off">
+        </label>
+
+        <fieldset class="rating-input">
+          <legend>Bewertung (5 = am besten)</legend>
+          <div class="rating-options">
+            <input type="radio" name="rating" id="rating-1" value="1"><label for="rating-1">1</label>
+            <input type="radio" name="rating" id="rating-2" value="2"><label for="rating-2">2</label>
+            <input type="radio" name="rating" id="rating-3" value="3" checked><label for="rating-3">3</label>
+            <input type="radio" name="rating" id="rating-4" value="4"><label for="rating-4">4</label>
+            <input type="radio" name="rating" id="rating-5" value="5"><label for="rating-5">5</label>
+          </div>
+        </fieldset>
+
+        <label class="field">Notiz
+          <textarea id="note" rows="3"></textarea>
+        </label>
+
+        <button class="button" type="submit">Speichern</button>
+      </form>
+    </details>
+
+    <section class="beans">
+      <h2>Meine Bohnen</h2>
+      <ul id="product-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Deine Einträge liegen nur auf diesem Gerät.</p>
+    <button id="export-button" class="link-button" type="button">Sicherung speichern</button>
+    <button id="import-button" class="link-button" type="button">Sicherung laden</button>
     <input id="import-file" type="file" accept="application/json" hidden>
-  </div>
+  </footer>
+
   <script src="html5-qrcode.min.js"></script>
   <script type="module" src="app.js"></script>
 </body>

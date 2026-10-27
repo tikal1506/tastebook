@@ -1,17 +1,24 @@
-export function formatProduct(p) {
-  return `${p.name} ${"★".repeat(p.rating)} ${p.note}`.trim();
-}
+import { el, ratingBadge } from "./ui.js";
 
 export function renderList(listEl, products, { onDelete }) {
+  if (products.length === 0) {
+    listEl.replaceChildren(
+      el("li", "empty", "Noch keine Bohnen gespeichert. Scanne eine Packung oder lege die erste von Hand an.")
+    );
+    return;
+  }
+
   const items = products.map((p) => {
-    const li = document.createElement("li");
-    li.textContent = formatProduct(p) + " ";
+    const li = el("li", "bean");
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Löschen";
-    deleteButton.addEventListener("click", () => onDelete(p.id));
+    const deleteButton = el("button", "link-button", "Löschen");
+    deleteButton.type = "button";
+    deleteButton.setAttribute("aria-label", `${p.name} löschen`);
+    deleteButton.addEventListener("click", () => onDelete(p));
 
-    li.appendChild(deleteButton);
+    li.append(el("span", "bean-name", p.name), ratingBadge(p.rating));
+    if (p.note) li.append(el("p", "bean-note", p.note));
+    li.append(deleteButton);
     return li;
   });
 
